@@ -11,7 +11,7 @@ import json
 import os
 
 from config import get_config
-from environment import UAVAssistedVECEnv
+from uav_vec_noma_env import UAVAssistedVECEnvNOMA   # ← CHANGED: was 'from environment import UAVAssistedVECEnv'
 from td3_agent import TD3Agent
 
 
@@ -31,7 +31,7 @@ def train_drl_tcoa(config, save_dir='results'):
     os.makedirs(save_dir, exist_ok=True)
     
     # Initialize environment
-    env = UAVAssistedVECEnv(config)
+    env = UAVAssistedVECEnvNOMA(config)   # ← CHANGED: was UAVAssistedVECEnv(config)
     
     # Get dimensions
     state_dim = env.observation_space.shape[0]
@@ -130,7 +130,6 @@ def train_drl_tcoa(config, save_dir='results'):
     
     metrics_path = os.path.join(save_dir, 'training_metrics.json')
     with open(metrics_path, 'w') as f:
-        # Convert to lists for JSON serialization
         json_metrics = {k: [float(v) for v in vals] for k, vals in metrics.items()}
         json.dump(json_metrics, f, indent=2)
     
@@ -151,14 +150,13 @@ def evaluate_agent(agent, config, num_episodes=10):
     Returns:
         Evaluation metrics
     """
-    env = UAVAssistedVECEnv(config)
+    env = UAVAssistedVECEnvNOMA(config)   # ← CHANGED: was UAVAssistedVECEnv(config)
     
     episode_rewards = []
     episode_costs = []
     episode_penalties = []
     
     for episode in range(num_episodes):
-        # state = env.reset()
         state = env.reset()
         episode_reward = 0
         episode_cost = 0
@@ -197,24 +195,22 @@ def evaluate_agent(agent, config, num_episodes=10):
 
 def main():
     """Main training function"""
-    # Get configuration for normal scenario with Map 1 and 10 vehicles
-    scenario = 'normal'
-    map_name = 'map1'
-    num_vehicles = 10
-    config = get_config(scenario=scenario, map_name=map_name, num_vehicles=num_vehicles)
+    config = get_config(scenario='normal', map_name='map1', num_vehicles=10)
     
     print("=" * 80)
-    print("DRL-TCOA Training - UAV-Assisted VEC Network")
+    print("DRL-TCOA Training - UAV-Assisted VEC Network (MIMO-NOMA Channel)")
     print("=" * 80)
     print(f"\nConfiguration:")
-    print(f"  Scenario: {scenario}")
-    print(f"  Map: {map_name}")
+    print(f"  Scenario: normal")
+    print(f"  Map: map1")
     print(f"  Number of vehicles: {config['num_vehicles']}")
     print(f"  Max episodes: {config['td3']['max_episodes']}")
     print(f"  Max steps per episode: {config['td3']['max_steps']}")
     print(f"  Batch size: {config['td3']['batch_size']}")
     print(f"  Actor learning rate: {config['td3']['actor_lr']}")
     print(f"  Critic learning rate: {config['td3']['critic_lr']}")
+    print(f"  NOMA antennas (RSU): {config['noma']['num_bs_antennas']}")
+    print(f"  NOMA antennas (UAV): {config['noma']['num_uav_antennas']}")
     print("=" * 80)
     
     # Train agent
