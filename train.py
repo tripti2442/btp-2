@@ -198,14 +198,17 @@ def evaluate_agent(agent, config, num_episodes=10):
 def main():
     """Main training function"""
     # Get configuration for normal scenario with Map 1 and 10 vehicles
-    config = get_config(scenario='normal', map_name='map1', num_vehicles=10)
+    scenario = 'normal'
+    map_name = 'map1'
+    num_vehicles = 10
+    config = get_config(scenario=scenario, map_name=map_name, num_vehicles=num_vehicles)
     
     print("=" * 80)
     print("DRL-TCOA Training - UAV-Assisted VEC Network")
     print("=" * 80)
     print(f"\nConfiguration:")
-    print(f"  Scenario: normal")
-    print(f"  Map: map1")
+    print(f"  Scenario: {scenario}")
+    print(f"  Map: {map_name}")
     print(f"  Number of vehicles: {config['num_vehicles']}")
     print(f"  Max episodes: {config['td3']['max_episodes']}")
     print(f"  Max steps per episode: {config['td3']['max_steps']}")

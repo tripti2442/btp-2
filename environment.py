@@ -130,9 +130,9 @@ class UAVAssistedVECEnv(gym.Env):
                 # Generate task data size (in bits)
                 mean_size = self.net_cfg['task_data_size_mean']
                 std_size = self.net_cfg['task_data_size_std']
-                data_size = np.random.normal(mean_size, std_size)
-                data_size = max(0, data_size)  # Ensure non-negative
-                
+                # data_size = np.random.normal(mean_size, std_size)
+                # data_size = max(0, data_size)  # Ensure non-negative
+                data_size = np.random.uniform(4e6, 6.4e6)  # Uniform distribution for simplicity
                 # Maximum tolerable latency
                 max_latency = self.net_cfg['task_max_latency']
                 

@@ -9,11 +9,11 @@ import numpy as np
 # Table II: TD3 Hyperparameters
 # ====================================================================================
 TD3_CONFIG = {
-    'actor_lr': 3e-4,              # Learning rate for actor
-    'critic_lr': 3e-4,             # Learning rate for critic
+    'actor_lr': 5e-3,              # Learning rate for actor
+    'critic_lr': 5e-3,             # Learning rate for critic
     'discount_factor': 0.999,        # Discount factor ζ
-    'tau': 0.001,                   # Soft update rate ψ
-    'policy_noise': 0.2,            # Policy noise for target smoothing
+    'tau': 0.005,                   # Soft update rate ψ
+    'policy_noise': 0.1,            # Policy noise for target smoothing
     'noise_clip': 0.5,              # Noise clip value c
     'policy_delay': 2,              # Delayed policy updates k
     'batch_size': 32,              # Mini-batch size
@@ -29,7 +29,7 @@ TD3_CONFIG = {
 NETWORK_CONFIG = {
     # Simulation parameters
     'time_slot_duration': 0.05,     # τ = 0.05 seconds
-    'carrier_frequency': 2e9,       # f = 2 GHz
+    'carrier_frequency': 1.95e9,       # f = 1.95 GHz
     'speed_of_light': 3e8,          # C = 3 × 10^8 m/s
     
     # UAV parameters
@@ -54,7 +54,7 @@ NETWORK_CONFIG = {
     'vehicle_velocity_range': [10, 20], # 10-20 m/s
     
     # Channel parameters
-    'awgn_power_density': 1e-9,     # N_0 = -90 dBm/Hz
+    'awgn_power_density': 3.98e-21,     # N_0 = -90 dBm/Hz
     'eta_los': 1,                   # LoS path loss (dB)
     'eta_nlos': 20,                 # NLoS path loss (dB)
     'eta_rayleigh': 3,              # Rayleigh fading coefficient
@@ -69,7 +69,7 @@ NETWORK_CONFIG = {
     # Task parameters
     'task_data_size_mean': 500e3,   # Mean task size: 500 kB (in bits)
     'task_data_size_std': 100e3,    # Std of task size: 100 kB
-    'task_max_latency': 1.0,        # T_max = 1 second
+    'task_max_latency': 0.5,        # T_max = 1 second
     'task_arrival_rate': 0.6,       # λ_u = 0.6 (Poisson parameter)
     
     # UAV energy model parameters (from equation 20)
@@ -101,9 +101,9 @@ MAP_CONFIGS = {
         'description': '600m two-way lane with 3 RSUs',
         'area': (600, 200),
         'rsu_positions': [
-            (100, 100),
-            (300, 100),
-            (500, 100),
+            (100, 200),
+            (300, 200),
+            (500, 200),
         ],
         'num_rsus': 3,
     },
@@ -159,7 +159,7 @@ SCENARIO_CONFIGS = {
     }
 }
 
-def get_config(scenario='normal', map_name='map1', num_vehicles=5):
+def get_config(scenario='normal', map_name='map1', num_vehicles=10):
     """
     Get complete configuration for a specific scenario
     
