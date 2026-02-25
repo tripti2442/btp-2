@@ -11,7 +11,7 @@ import json
 import os
 
 from config import get_config
-from uav_vec_noma_env import UAVAssistedVECEnvNOMA   # ← CHANGED: was 'from environment import UAVAssistedVECEnv'
+from environment import UAVAssistedVECEnvNOMA   # ← CHANGED: was 'from environment import UAVAssistedVECEnv'
 from td3_agent import TD3Agent
 
 
