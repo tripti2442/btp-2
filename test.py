@@ -12,7 +12,7 @@ def test_imports():
     print("Testing imports...")
     try:
         from config import get_config
-        from uav_vec_noma_env import UAVAssistedVECEnvNOMA   # ← CHANGED
+        from environment import UAVAssistedVECEnvNOMA   # ← CHANGED
         from networks import Actor, Critic, ReplayBuffer
         from td3_agent import TD3Agent
         from baselines import DDPGAgent, LocalExecutionStrategy
@@ -59,7 +59,7 @@ def test_environment():
     print("\nTesting environment...")
     try:
         from config import get_config
-        from uav_vec_noma_env import UAVAssistedVECEnvNOMA   # ← CHANGED
+        from environment import UAVAssistedVECEnvNOMA   # ← CHANGED
 
         config = get_config(scenario='normal', map_name='map1', num_vehicles=5)
         env = UAVAssistedVECEnvNOMA(config)                  # ← CHANGED
@@ -217,7 +217,7 @@ def test_integration():
     print("\nTesting full integration...")
     try:
         from config import get_config
-        from uav_vec_noma_env import UAVAssistedVECEnvNOMA   # ← CHANGED
+        from environment import UAVAssistedVECEnvNOMA   # ← CHANGED
         from td3_agent import TD3Agent
 
         config = get_config(scenario='normal', map_name='map1', num_vehicles=5)
